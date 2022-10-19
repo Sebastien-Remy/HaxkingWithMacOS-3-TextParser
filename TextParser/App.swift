@@ -14,6 +14,10 @@ struct App {
         let text = CommandLine.arguments.dropFirst().joined(separator: " ")
         print(text)
         
+        let language = NLLanguageRecognizer.dominantLanguage(for: text) ?? .undetermined
+        print()
+        print("Detected language: \(language.rawValue)")
+        
         print()
         let sentiment = sentiment(for: text)
         print("Sentiment analysis: \(sentiment)")
@@ -32,6 +36,13 @@ struct App {
         for word in lemma {
             let embeddings = embeddings(for: word)
             print("\t\(word): ", embeddings.formatted(.list(type: .and)))
+        }
+        
+        print()
+        let entities = entities(for: text)
+        print ("Found the folowwing entities:")
+        for entity in entities {
+            print("\t", entity)
         }
     }
     
@@ -77,4 +88,31 @@ struct App {
         return results
     }
     
+    static func entities(for string: String) -> [String] {
+        let tagger = NLTagger(tagSchemes: [.nameType])
+        tagger.string = string
+        var results = [String]()
+        
+        tagger.enumerateTags(in: string.startIndex..<string.endIndex, unit: .word, scheme: .nameType, options: .joinNames) {
+            tag, range in
+            
+            guard let tag = tag else { return true }
+            let match = String(string[range])
+            
+            switch tag {
+            case .organizationName:
+                results.append("Organization: \(match)")
+            case .personalName:
+                results.append("Person: \(match)")
+            case .placeName:
+                results.append("Place: \(match)")
+            default:
+                break
+            }
+            
+            return true
+        }
+        
+        return results
+    }
 }
