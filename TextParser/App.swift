@@ -28,7 +28,7 @@ struct App {
         
         print()
         let lemma = lemmatize(string: text)
-        print("Found the followin alternatives:")
+        print("Found the following alternatives:")
         for word in lemma {
             let embeddings = embeddings(for: word)
             print("\t\(word): ", embeddings.formatted(.list(type: .and)))
