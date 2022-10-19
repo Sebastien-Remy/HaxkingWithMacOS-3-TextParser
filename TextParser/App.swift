@@ -15,15 +15,21 @@ struct App {
         print(text)
         
         print()
-        
         let sentiment = sentiment(for: text)
         print("Sentiment analysis: \(sentiment)")
         
         print()
-        
-        print("Found the followun alternatives:")
+        print("Found the following alternatives:")
         
         for word in text.components(separatedBy: " ") {
+            let embeddings = embeddings(for: word)
+            print("\t\(word): ", embeddings.formatted(.list(type: .and)))
+        }
+        
+        print()
+        let lemma = lemmatize(string: text)
+        print("Found the followin alternatives:")
+        for word in lemma {
             let embeddings = embeddings(for: word)
             print("\t\(word): ", embeddings.formatted(.list(type: .and)))
         }
@@ -48,4 +54,27 @@ struct App {
         
         return results
     }
+    
+    static func lemmatize(string: String) -> [String] {
+        let tagger = NLTagger(tagSchemes: [.lemma])
+        tagger.string = string
+        var results = [String]()
+        
+        tagger.enumerateTags(in: string.startIndex..<string.endIndex,
+                             unit: .word,
+                             scheme: .lemma) { tag, range in
+            
+            let stemForm = tag?.rawValue ?? String(string[range].trimmingCharacters(in: .whitespaces))
+            
+            if stemForm.isEmpty == false {
+                results.append(stemForm)
+            }
+            return true
+            
+        }
+        
+        
+        return results
+    }
+    
 }
