@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		96EE26E528FE94080070AD4A /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EE26E428FE94080070AD4A /* App.swift */; };
+		96EE26F029029EEA0070AD4A /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 96EE26EF29029EEA0070AD4A /* ArgumentParser */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		96EE26DF28FE94080070AD4A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
+			dstPath = /usr/share/man/man1;
 			dstSubfolderSpec = 0;
 			files = (
 			);
@@ -32,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96EE26F029029EEA0070AD4A /* ArgumentParser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +80,9 @@
 			dependencies = (
 			);
 			name = TextParser;
+			packageProductDependencies = (
+				96EE26EF29029EEA0070AD4A /* ArgumentParser */,
+			);
 			productName = TextParser;
 			productReference = 96EE26E128FE94080070AD4A /* TextParser */;
 			productType = "com.apple.product-type.tool";
@@ -106,6 +111,9 @@
 				Base,
 			);
 			mainGroup = 96EE26D828FE94080070AD4A;
+			packageReferences = (
+				96EE26EE29029EEA0070AD4A /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+			);
 			productRefGroup = 96EE26E228FE94080070AD4A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -284,6 +292,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		96EE26EE29029EEA0070AD4A /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		96EE26EF29029EEA0070AD4A /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96EE26EE29029EEA0070AD4A /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 96EE26D928FE94080070AD4A /* Project object */;
 }
